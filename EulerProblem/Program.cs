@@ -9,8 +9,7 @@ namespace EulerProblem
             Console.WriteLine("Multiples of 3 or 5");
             Console.WriteLine("\n If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9.The sum of these multiples is 23.");
             Console.WriteLine("Find the sum of all the multiples of 3 or 5 below 1000.");
-            MultiplesMethodOne(new int[] { 3, 5 }, 1000);
-            //MultiplesMethodTwo(new int[] { 3, 5 }, 1000);
+            Multiples(new int[] { 3, 5 }, 1000);
 
 
             Console.WriteLine("Even Fibonacci numbers");
@@ -131,8 +130,9 @@ namespace EulerProblem
             HighlyDivisibleTriangularNumber();
 
 
-            Console.WriteLine("Work out the first ten digits of the sum of the following one - hundred 50 - digit numbers.\n" +
-             "37107287533902102798797998220837590246510135740250\n" +
+            Console.WriteLine("Work out the first ten digits of the sum of the following one - hundred 50 - digit numbers.");
+            #region Big numbers
+            Console.WriteLine("37107287533902102798797998220837590246510135740250\n" +
              "46376937677490009712648124896970078050417018260538\n" +
              "74324986199524741059474233309513058123726617309629\n" +
              "91942213363574161572522430563301811072406154908250\n" +
@@ -232,10 +232,30 @@ namespace EulerProblem
              "72107838435069186155435662884062257473692284509516\n" +
              "20849603980134001723930671666823555245252804609722\n" +
              "53503534226472524250874054075591789781264330331690\n");
+            #endregion
             LargeSum();
+
+
+            Console.WriteLine("The following iterative sequence is defined for the set of positive integers:");
+            Console.WriteLine("            n → n / 2(n is even)");
+            Console.WriteLine("            n → 3n + 1(n is odd)");
+            Console.WriteLine("Using the rule above and starting with 13, we generate the following sequence:");
+            Console.WriteLine("            13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1");
+            Console.WriteLine("It can be seen that this sequence(starting at 13 and finishing at 1) contains 10 terms.Although it has not been proved yet(Collatz Problem), it is thought that all starting numbers finish at 1.");
+            Console.WriteLine("Which starting number, under one million, produces the longest chain ?");
+            Console.WriteLine("NOTE : Once the chain starts the terms are allowed to go above one million.");
+            LongestCollatzSequence();
+
+
+            Console.WriteLine("Starting in the top left corner of a 2×2 grid, and only being able to move to the right and down, there are exactly 6 routes to the bottom right corner.");
+            Console.WriteLine("How many such routes are there through a 20×20 grid ?");
+            LatticePaths();
+                
+
+
         }
         #region Multiples
-        static void MultiplesMethodOne(int[] numberMultiples, int maxNumber)
+        static void Multiples(int[] numberMultiples, int maxNumber)
         {
             //sort vector numberMultiples
             int max = maxNumber;
@@ -254,29 +274,6 @@ namespace EulerProblem
 
                 }
                 max = maxNumber;
-                Console.WriteLine("");
-            }
-            Console.WriteLine("sum of all the multiples of 3 or 5 below 1000 = " + sum);
-        }
-        static void MultiplesMethodTwo(int[] numberMultiples, int maxNumber)
-        {
-            //sort vector numberMultiples
-
-            int sum = 0;
-            int temp;
-            for (int i = 0; i < numberMultiples.Length; i++)
-            {
-                int multiplier = maxNumber / numberMultiples[i];
-                Console.WriteLine("natural numbers are multiples of " + numberMultiples[i]);
-                while (multiplier > 0)
-                {
-                    temp = multiplier * numberMultiples[i];
-                    Console.Write(temp + " ");
-                    sum += temp;
-
-                    multiplier--;
-
-                }
                 Console.WriteLine("");
             }
             Console.WriteLine("sum of all the multiples of 3 or 5 below 1000 = " + sum);
@@ -307,7 +304,7 @@ namespace EulerProblem
         static void PrimeFactor(long number)
         {
             int[] primeNumbers = { 2 };
-            bool coffecent = true;
+            bool coffecent;
             int primeNumber = 1;
             int max = 1;
             long multipler = (long)Math.Sqrt(number);
@@ -423,7 +420,7 @@ namespace EulerProblem
             int[] primeNumbers = { 2 };
             int primeNumber = 1;
 
-            bool coffecent = true;
+            bool coffecent;
             while (primeNumbers.Length < 10001)
             {
                 primeNumber += 2;
@@ -624,7 +621,7 @@ namespace EulerProblem
             int[] primeNumbers = { 2 };
             int primeNumber = 1;
             long sum = 2;
-            bool coffecent = true;
+            bool coffecent;
             while (primeNumbers[primeNumbers.Length - 1] < max/*primeNumber+sum < max*/)
             {
                 primeNumber += 2;
@@ -857,6 +854,59 @@ namespace EulerProblem
             sum = temp + sum;
             Console.WriteLine(sum);
         }
+        #endregion
+
+        #region Longest Collatz sequence
+        static void LongestCollatzSequence()
+        {
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
+            long[] longSeq = new long[1000000];
+            long maxSequence = 0;
+            long max = 0;
+            for (long i = 2; i < 1000000; i++)
+            {
+                long sequence = 1;
+                long current = i;
+                while (current != 1)
+                {
+                    if (current % 2 == 0)
+                        current /= 2;
+                    else
+                        current = current * 3 + 1;
+                    
+                    if (current < longSeq.Length && longSeq[current] != 0)
+                    {
+                        sequence += longSeq[current];
+                        break;
+                    }
+                    sequence++;
+                }
+                longSeq[i] = sequence;
+                if (sequence > maxSequence)
+                {
+                    maxSequence = sequence;
+                    max = i;
+                }
+            }
+            Console.WriteLine(" Starting number produces the longest chain: " + max + ". Long chain: " + maxSequence);
+            stopwatch.Stop();
+            Console.WriteLine("Time: " + stopwatch.Elapsed);
+        }
+        #endregion
+
+        #region Lattice paths
+        static void LatticePaths()
+        {
+
+        }
+        #endregion
+
+        #region
+        #endregion
+
+        #region
         #endregion
 
         #region
