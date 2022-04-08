@@ -249,8 +249,9 @@ namespace EulerProblem
 
             Console.WriteLine("Starting in the top left corner of a 2×2 grid, and only being able to move to the right and down, there are exactly 6 routes to the bottom right corner.");
             Console.WriteLine("How many such routes are there through a 20×20 grid ?");
-            LatticePaths();
-                
+            Console.WriteLine("Solution: " + (LatticePaths(20)));
+
+
 
 
         }
@@ -897,9 +898,36 @@ namespace EulerProblem
         #endregion
 
         #region Lattice paths
-        static void LatticePaths()
+        static ulong LatticePaths(int sideLenght)
         {
-
+            int[] factorial = new int[sideLenght];
+            for (int i = 0; i < sideLenght;i++)
+                factorial[i] = sideLenght*2 - i;
+            int device = sideLenght;
+            for (int i = 0; device > 0; i++)
+            {
+                if(device == 10)
+                {
+                    break;
+                }
+                if (factorial[i] % device == 0)
+                {
+                    factorial[i] /= device;
+                    i = 0;
+                    device--;
+                }
+            }
+            ulong otvet = 1;
+            for (int i = 0; i < sideLenght; i++)
+                otvet *= (ulong)factorial[i];
+            return otvet / mult(10);
+        }
+        static ulong mult(ulong x)
+        {
+            ulong a = 1;
+            for (ulong i = 2; i <= x; i++)
+                a *= i;
+            return a;
         }
         #endregion
 
