@@ -257,7 +257,6 @@ namespace EulerProblem
             Console.WriteLine("What is the sum of the digits of the number 2^1000 ?");
             PowerDigitSumMethodOne(1000);
             PowerDigitSumMethodTwo(1000);
-            
 
         }
         #region Multiples
@@ -980,6 +979,22 @@ namespace EulerProblem
                 add += num.ValueConvert(i);
             }
             Console.WriteLine(add);
+            stopwatch.Stop();
+            Console.WriteLine("Time: " + stopwatch.Elapsed);
+        }
+
+        static void PowerDigitSumMethodThree(int powerOf)
+        {
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
+            int result = 0;
+            foreach (char item in Math.Pow(2, 1000).ToString("F99").TrimEnd('0').TrimEnd(',').ToCharArray())
+            {
+                result += Int32.Parse(item.ToString());
+            }
+            Console.WriteLine(result);
+
             stopwatch.Stop();
             Console.WriteLine("Time: " + stopwatch.Elapsed);
         }
