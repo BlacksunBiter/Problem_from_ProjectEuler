@@ -258,6 +258,16 @@ namespace EulerProblem
             PowerDigitSumMethodOne(1000);
             PowerDigitSumMethodTwo(1000);
 
+
+
+
+            Console.WriteLine("If the numbers 1 to 5 are written out in words: one, two, three, four, five, then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.");
+
+            Console.WriteLine("If all the numbers from 1 to 1000(one thousand) inclusive were written out in words, how many letters would be used?");
+
+            Console.WriteLine("NOTE: Do not count spaces or hyphens. For example, 342(three hundred and forty - two) contains 23 letters and 115(one hundred and fifteen) contains 20 letters.The use of 'and' when writing out numbers is in compliance with British usage.");
+            NumberLetterCounts();
+
         }
         #region Multiples
         static void Multiples(int[] numberMultiples, int maxNumber)
@@ -962,7 +972,7 @@ namespace EulerProblem
             {
                 temp += number.ValueConvert(j);
             }
-                Console.WriteLine(temp);
+            Console.WriteLine(temp);
             stopwatch.Stop();
             Console.WriteLine("Time: " + stopwatch.Elapsed);
         }
@@ -1000,7 +1010,39 @@ namespace EulerProblem
         }
         #endregion
 
-        #region
+        #region Number letter counts
+        static void NumberLetterCounts()
+        {
+            string[] allNumbers = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety", "hundred", "thousand" };
+            int sum = 0;
+            for (int i = 1; i < 20; i++)
+            {
+                sum += allNumbers[i].Length;
+            }
+            for (int i = 20; i < 100; i++)
+            {
+                switch (i / 10)
+                {
+                    case 2: sum += allNumbers[20].Length; break;
+                    case 3: sum += allNumbers[21].Length; break;
+                    case 4: sum += allNumbers[22].Length; break;
+                    case 5: sum += allNumbers[23].Length; break;
+                    case 6: sum += allNumbers[24].Length; break;
+                    case 7: sum += allNumbers[25].Length; break;
+                    case 8: sum += allNumbers[26].Length; break;
+                    case 9: sum += allNumbers[27].Length; break;
+                }
+                sum += allNumbers[i%10].Length;
+            }
+            sum *= 10;
+            for (int i = 100; i < 1000; i++)
+            {
+                sum += allNumbers[28].Length + allNumbers[i / 100].Length;
+                if (i%100!=0)
+                sum +=3;
+            }
+            Console.WriteLine(sum+ allNumbers[29].Length+3);
+        }
         #endregion
 
         #region
