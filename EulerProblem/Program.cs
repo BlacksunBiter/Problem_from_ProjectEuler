@@ -288,8 +288,21 @@ namespace EulerProblem
             Console.WriteLine("      63 66 04 68 89 53 67 30 73 16 69 87 40 31");
             Console.WriteLine("     04 62 98 27 23 09 70 98 73 93 38 53 60 04 23");
             Console.WriteLine("NOTE: As there are only 16384 routes, it is possible to solve this problem by trying every route.However, Problem 67, is the same challenge with a triangle containing one-hundred rows; it cannot be solved by brute force, and requires a clever method!; o)");
-            MaximumPathSumI();
-            MaximumPathSumII();
+            //MaximumPathSumI();
+            //MaximumPathSumII();
+
+
+            Console.WriteLine("You are given the following information, but you may prefer to do some research for yourself.");
+            Console.WriteLine("* 1 Jan 1900 was a Monday.");
+            Console.WriteLine("* Thirty days has September,");
+            Console.WriteLine("April, June and November.");
+            Console.WriteLine("* All the rest have thirty - one,");
+            Console.WriteLine("Saving February alone,");
+            Console.WriteLine("Which has twenty - eight, rain or shine.");
+            Console.WriteLine("And on leap years, twenty - nine.");
+            Console.WriteLine("* A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.");
+            Console.WriteLine("How many Sundays fell on the first of the month during the twentieth century(1 Jan 1901 to 31 Dec 2000) ?");
+            CountingSundays();
 
         }
         #region Multiples
@@ -1114,7 +1127,7 @@ namespace EulerProblem
 
             for (int i = triangle.Length - 2; i >= 0; i--)
                 for (int j = 0; j <= i; j++)
-                    triangle[i][j] += Math.Max(triangle[i + 1][j], triangle[i + 1][j + 1]);
+                    triangle[i][j] += (triangle[i + 1][j] >= triangle[i + 1][j + 1]) ? triangle[i + 1][j] : triangle[i + 1][j + 1];
             Console.WriteLine(triangle[0][0]);
             //for (int i = 0; i < triangle.Length; i++)
             //{
@@ -1244,8 +1257,37 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         }
         #endregion
 
-        #region
+        #region Counting Sundays
+        static void CountingSundays()
+        {
+            int[] days = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+            int sunday = 0;
+            int day = 1;
+            for(int i=1;i<=100;i++)
+            {
+                if (i % 4 == 0)
+                    days[1]++;
+                for (int month = 0; month < days.Length; month++)
+                {
+                    for (int j = 1; j <= days[month]; j++)
+                    {
+                        
+                        day++;
+                        if (day == 7)
+                        {
+                            if (j == 1)
+                                sunday++;
+                            day = 0;
+                        }
+                    }
+                }
+                if (i % 4 == 0)
+                    days[1]--;
+            }
+            Console.WriteLine(sunday);
+        }
         #endregion
+
         #region
         #endregion
         #region
