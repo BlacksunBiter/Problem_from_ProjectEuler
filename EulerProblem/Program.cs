@@ -304,6 +304,12 @@ namespace EulerProblem
             Console.WriteLine("How many Sundays fell on the first of the month during the twentieth century(1 Jan 1901 to 31 Dec 2000) ?");
             CountingSundays();
 
+
+            Console.WriteLine("n! means n × (n − 1) × ... × 3 × 2 × 1");
+            Console.WriteLine("For example, 10! = 10 × 9 × ... × 3 × 2 × 1 = 3628800,");
+            Console.WriteLine("and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.");
+            Console.WriteLine("Find the sum of the digits in the number 100!");
+            FactorialDigitSum(100);
         }
         #region Multiples
         static void Multiples(int[] numberMultiples, int maxNumber)
@@ -1288,16 +1294,38 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         }
         #endregion
 
+        #region Factorial digit sum
+        static void FactorialDigitSum(int n)
+        {
+            BigInteger  mult = 2;
+            int sum = 0;
+            for (int i =3;i<=n;i++)
+            {
+                if (mult % 10 == 0)
+                    mult /= 10;
+                mult *= i;
+            }
+            while(mult>0)
+            {
+                sum += (int)(mult % 10);
+                mult /= 10;
+            }
+            Console.WriteLine(sum);
+        }
+        #endregion
+
         #region
         #endregion
+
         #region
         #endregion
+
         #region
         #endregion
+
         #region
         #endregion
-        #region
-        #endregion
+
         #region
         #endregion
     }
