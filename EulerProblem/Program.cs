@@ -310,6 +310,14 @@ namespace EulerProblem
             Console.WriteLine("and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.");
             Console.WriteLine("Find the sum of the digits in the number 100!");
             FactorialDigitSum(100);
+
+
+            Console.WriteLine("Let d(n) be defined as the sum of proper divisors of n(numbers less than n which divide evenly into n).");
+            Console.WriteLine("If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable pair and each of a and b are called amicable numbers.");
+            Console.WriteLine("For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 and 110; therefore d(220) = 284.The proper divisors of 284 are 1, 2, 4, 71 and 142; so d(284) = 220.");
+            Console.WriteLine("Evaluate the sum of all the amicable numbers under 10000.");
+            AmicableNumbers();
+
         }
         #region Multiples
         static void Multiples(int[] numberMultiples, int maxNumber)
@@ -1314,7 +1322,33 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         }
         #endregion
 
-        #region
+        #region Amicable numbers
+        static void AmicableNumbers()
+        {
+            int NumberOne, NumberTwo;
+            int sum = 0;
+            for (int i=10;i<10000;i++)
+            {
+                NumberOne = SumDivider(i);
+                NumberTwo= SumDivider(NumberOne);
+                if (i == NumberTwo&& i!=NumberOne)
+                {
+                    Console.WriteLine(i + " = " + NumberOne);
+                    sum += i + NumberOne;
+                }
+            }
+            Console.WriteLine(sum/2);
+        }
+        static int SumDivider(int dividend)
+        {
+            int sum = 1;
+            for (int divider = 2; divider <= dividend / 2; divider++)
+            {
+                if (dividend % divider == 0)
+                    sum += divider;
+            }
+            return sum;
+        }
         #endregion
 
         #region
