@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Text;
+using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
+using System.Linq;
 
 namespace EulerProblem
 {
@@ -317,6 +321,16 @@ namespace EulerProblem
             Console.WriteLine("For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 and 110; therefore d(220) = 284.The proper divisors of 284 are 1, 2, 4, 71 and 142; so d(284) = 220.");
             Console.WriteLine("Evaluate the sum of all the amicable numbers under 10000.");
             AmicableNumbers();
+
+
+            Console.WriteLine("Using names.txt(right click and 'Save Link/Target As...'), a 46K text file containing over five-thousand first names, begin by sorting it into alphabetical order. Then working out the alphabetical value for each name, multiply this value by its alphabetical position in the list to obtain a name score.");
+
+
+
+            Console.WriteLine("For example, when the list is sorted into alphabetical order, COLIN, which is worth 3 + 15 + 12 + 9 + 14 = 53, is the 938th name in the list.So, COLIN would obtain a score of 938 × 53 = 49714.");
+
+            Console.WriteLine("What is the total of all the name scores in the file ?");
+            NamesScores();
 
         }
         #region Multiples
@@ -1351,7 +1365,153 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         }
         #endregion
 
-        #region
+        #region Names scores
+        static void NamesScores()
+        {
+            int[] array = { 4, 5, 8, 1, 9, 2, 7, 3, 6, 26, 11, 24, 17, 10, 25, 13, 23, 14, 22, 15, 21, 16, 20, 18, 19, 12 };
+            string[] names;
+            using (FileStream fstream = File.OpenRead("names.txt"))
+            {
+                // выделяем массив для считывания данных из файла
+                byte[] buffer = new byte[fstream.Length];
+                // считываем данные
+                fstream.Read(buffer, 0, buffer.Length);
+                // декодируем байты в строку
+                string textFromFile = Encoding.Default.GetString(buffer);
+                names = textFromFile.Split(',');
+            }
+            decimal[] convertNames = new decimal[names.Length];
+            for (int i = 0; i < names.Length; i++)
+            {
+                for (int j = 0; j < names[i].Length; j++)
+                {
+                    convertNames[i] *= 100;
+                    switch (names[i][j])
+                    {
+                        case 'A': convertNames[i] += 10; break;
+                        case 'B': convertNames[i] += 11; break;
+                        case 'C': convertNames[i] += 12; break;
+                        case 'D': convertNames[i] += 13; break;
+                        case 'E': convertNames[i] += 14; break;
+                        case 'F': convertNames[i] += 15; break;
+                        case 'G': convertNames[i] += 16; break;
+                        case 'H': convertNames[i] += 17; break;
+                        case 'I': convertNames[i] += 18; break;
+                        case 'J': convertNames[i] += 19; break;
+                        case 'K': convertNames[i] += 20; break;
+                        case 'L': convertNames[i] += 21; break;
+                        case 'M': convertNames[i] += 22; break;
+                        case 'N': convertNames[i] += 23; break;
+                        case 'O': convertNames[i] += 24; break;
+                        case 'P': convertNames[i] += 25; break;
+                        case 'Q': convertNames[i] += 26; break;
+                        case 'R': convertNames[i] += 27; break;
+                        case 'S': convertNames[i] += 28; break;
+                        case 'T': convertNames[i] += 29; break;
+                        case 'U': convertNames[i] += 30; break;
+                        case 'V': convertNames[i] += 31; break;
+                        case 'W': convertNames[i] += 32; break;
+                        case 'X': convertNames[i] += 33; break;
+                        case 'Y': convertNames[i] += 34; break;
+                        case 'Z': convertNames[i] += 35; break;
+                    }
+                }
+            }
+
+            QSort(convertNames);
+
+            string[] tmp = new string[names.Length];
+            BigInteger sum = 0;
+            BigInteger globalsum = 0;
+            for (int i = 0; i < names.Length; i++)
+            {
+                sum = 0;
+                while (convertNames[i] != 0)
+                {
+                    switch (convertNames[i] % 100)
+                    {
+                        case 10: tmp[i] = 'A' + tmp[i]; sum += 1; break;
+                        case 11: tmp[i] = 'B' + tmp[i]; sum += 2; break;
+                        case 12: tmp[i] = 'C' + tmp[i]; sum += 3; break;
+                        case 13: tmp[i] = 'D' + tmp[i]; sum += 4; break;
+                        case 14: tmp[i] = 'E' + tmp[i]; sum += 5; break;
+                        case 15: tmp[i] = 'F' + tmp[i]; sum += 6; break;
+                        case 16: tmp[i] = 'G' + tmp[i]; sum += 7; break;
+                        case 17: tmp[i] = 'H' + tmp[i]; sum += 8; break;
+                        case 18: tmp[i] = 'I' + tmp[i]; sum += 9; break;
+                        case 19: tmp[i] = 'J' + tmp[i]; sum += 10; break;
+                        case 20: tmp[i] = 'K' + tmp[i]; sum += 11; break;
+                        case 21: tmp[i] = 'L' + tmp[i]; sum += 12; break;
+                        case 22: tmp[i] = 'M' + tmp[i]; sum += 13; break;
+                        case 23: tmp[i] = 'N' + tmp[i]; sum += 14; break;
+                        case 24: tmp[i] = 'O' + tmp[i]; sum += 15; break;
+                        case 25: tmp[i] = 'P' + tmp[i]; sum += 16; break;
+                        case 26: tmp[i] = 'Q' + tmp[i]; sum += 17; break;
+                        case 27: tmp[i] = 'R' + tmp[i]; sum += 18; break;
+                        case 28: tmp[i] = 'S' + tmp[i]; sum += 19; break;
+                        case 29: tmp[i] = 'T' + tmp[i]; sum += 20; break;
+                        case 30: tmp[i] = 'U' + tmp[i]; sum += 21; break;
+                        case 31: tmp[i] = 'V' + tmp[i]; sum += 22; break;
+                        case 32: tmp[i] = 'W' + tmp[i]; sum += 23; break;
+                        case 33: tmp[i] = 'X' + tmp[i]; sum += 24; break;
+                        case 34: tmp[i] = 'Y' + tmp[i]; sum += 25; break;
+                        case 35: tmp[i] = 'Z' + tmp[i]; sum += 26; break;
+                    }
+                    convertNames[i] = Math.Round(convertNames[i] / 100);
+                }
+                globalsum +=sum* (i + 1);
+            }
+
+
+
+            Console.WriteLine(globalsum);
+
+
+            var suma = File.ReadAllText("names.txt")
+                .Split(',')
+                .Select(n => n.Trim('"'))
+                .OrderBy(n => n)
+                .Select((name, i) => name.Sum(n => n - 64) * (i + 1))
+                .Sum();
+            Console.WriteLine($"Answer: {suma}");
+
+
+
+
+
+        }
+
+        
+
+        static void Swap(ref decimal a, ref decimal b)
+        {
+            decimal tmp = a;
+            a = b;
+            b = tmp;
+        }
+
+        static void QSort(decimal[] array, int firstIndex = 0, int lastIndex = -1)
+        {
+            if (lastIndex < 0)
+                lastIndex = array.Length - 1;
+            if (firstIndex >= lastIndex)
+                return;
+
+            int middleIndex = (lastIndex - firstIndex) / 2 + firstIndex;
+            int currentIndex = firstIndex;
+
+            Swap(ref array[firstIndex], ref array[middleIndex]);
+            for (int i = firstIndex + 1; i <= lastIndex; ++i)
+            {
+                if (array[i] <= array[firstIndex])
+                {
+                    Swap(ref array[++currentIndex], ref array[i]);
+                }
+            }
+            Swap(ref array[firstIndex], ref array[currentIndex]);
+            QSort(array, firstIndex, currentIndex - 1);
+            QSort(array, currentIndex + 1, lastIndex);
+        }
         #endregion
 
         #region
