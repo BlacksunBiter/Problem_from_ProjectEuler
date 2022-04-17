@@ -324,14 +324,16 @@ namespace EulerProblem
 
 
             Console.WriteLine("Using names.txt(right click and 'Save Link/Target As...'), a 46K text file containing over five-thousand first names, begin by sorting it into alphabetical order. Then working out the alphabetical value for each name, multiply this value by its alphabetical position in the list to obtain a name score.");
-
-
-
             Console.WriteLine("For example, when the list is sorted into alphabetical order, COLIN, which is worth 3 + 15 + 12 + 9 + 14 = 53, is the 938th name in the list.So, COLIN would obtain a score of 938 × 53 = 49714.");
-
             Console.WriteLine("What is the total of all the name scores in the file ?");
             NamesScores();
 
+
+            Console.WriteLine("A perfect number is a number for which the sum of its proper divisors is exactly equal to the number.For example, the sum of the proper divisors of 28 would be 1 + 2 + 4 + 7 + 14 = 28, which means that 28 is a perfect number.");
+            Console.WriteLine("A number n is called deficient if the sum of its proper divisors is less than n and it is called abundant if this sum exceeds n.");
+            Console.WriteLine("As 12 is the smallest abundant number, 1 + 2 + 3 + 4 + 6 = 16, the smallest number that can be written as the sum of two abundant numbers is 24.By mathematical analysis, it can be shown that all integers greater than 28123 can be written as the sum of two abundant numbers.However, this upper limit cannot be reduced any further by analysis even though it is known that the greatest number that cannot be expressed as the sum of two abundant numbers is less than this limit.");
+            Console.WriteLine("Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.");
+            NonAbundantSums();
         }
         #region Multiples
         static void Multiples(int[] numberMultiples, int maxNumber)
@@ -1514,7 +1516,39 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         }
         #endregion
 
-        #region
+        #region Non-abundant sums
+        static void NonAbundantSums()
+        {
+            BigInteger sum=0;
+            int max = 28123;
+            List<int> absolutlyNumbers = new List<int>();
+            for (int i = 1; i <= max; i++)
+            {
+                int absoluteSum = 0;
+                for (int divider = 1; divider <= i/2; divider++)
+                {
+                    if (i % divider == 0)
+                        absoluteSum += divider;
+                }
+                if (absoluteSum > i)
+                    absolutlyNumbers.Add(i);
+            }
+
+            int[] absolut = absolutlyNumbers.ToArray();
+            int tmp = 0;
+            int[] a = new int[max];
+
+            for (int i = 0; i < absolut.Length; i++)
+                for (int j = 0; j < absolut.Length; j++)
+                {
+                    tmp = absolut[i] + absolut[j];
+                    if(tmp<max)
+                        a[tmp]=tmp;
+                }
+            for (int i = 1; i < max; i++)
+                sum += i-a[i];
+            Console.WriteLine(sum);
+        }
         #endregion
 
         #region
