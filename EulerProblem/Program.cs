@@ -306,34 +306,40 @@ namespace EulerProblem
             Console.WriteLine("And on leap years, twenty - nine.");
             Console.WriteLine("* A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.");
             Console.WriteLine("How many Sundays fell on the first of the month during the twentieth century(1 Jan 1901 to 31 Dec 2000) ?");
-            CountingSundays();
+            //CountingSundays();
 
 
             Console.WriteLine("n! means n × (n − 1) × ... × 3 × 2 × 1");
             Console.WriteLine("For example, 10! = 10 × 9 × ... × 3 × 2 × 1 = 3628800,");
             Console.WriteLine("and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.");
             Console.WriteLine("Find the sum of the digits in the number 100!");
-            FactorialDigitSum(100);
+            //FactorialDigitSum(100);
 
 
             Console.WriteLine("Let d(n) be defined as the sum of proper divisors of n(numbers less than n which divide evenly into n).");
             Console.WriteLine("If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable pair and each of a and b are called amicable numbers.");
             Console.WriteLine("For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 and 110; therefore d(220) = 284.The proper divisors of 284 are 1, 2, 4, 71 and 142; so d(284) = 220.");
             Console.WriteLine("Evaluate the sum of all the amicable numbers under 10000.");
-            AmicableNumbers();
+            //AmicableNumbers();
 
 
             Console.WriteLine("Using names.txt(right click and 'Save Link/Target As...'), a 46K text file containing over five-thousand first names, begin by sorting it into alphabetical order. Then working out the alphabetical value for each name, multiply this value by its alphabetical position in the list to obtain a name score.");
             Console.WriteLine("For example, when the list is sorted into alphabetical order, COLIN, which is worth 3 + 15 + 12 + 9 + 14 = 53, is the 938th name in the list.So, COLIN would obtain a score of 938 × 53 = 49714.");
             Console.WriteLine("What is the total of all the name scores in the file ?");
-            NamesScores();
+            //NamesScores();
 
 
             Console.WriteLine("A perfect number is a number for which the sum of its proper divisors is exactly equal to the number.For example, the sum of the proper divisors of 28 would be 1 + 2 + 4 + 7 + 14 = 28, which means that 28 is a perfect number.");
             Console.WriteLine("A number n is called deficient if the sum of its proper divisors is less than n and it is called abundant if this sum exceeds n.");
             Console.WriteLine("As 12 is the smallest abundant number, 1 + 2 + 3 + 4 + 6 = 16, the smallest number that can be written as the sum of two abundant numbers is 24.By mathematical analysis, it can be shown that all integers greater than 28123 can be written as the sum of two abundant numbers.However, this upper limit cannot be reduced any further by analysis even though it is known that the greatest number that cannot be expressed as the sum of two abundant numbers is less than this limit.");
             Console.WriteLine("Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.");
-            NonAbundantSums();
+            //NonAbundantSums();
+
+
+            Console.WriteLine("A permutation is an ordered arrangement of objects.For example, 3124 is one possible permutation of the digits 1, 2, 3 and 4.If all of the permutations are listed numerically or alphabetically, we call it lexicographic order.The lexicographic permutations of 0, 1 and 2 are:");
+            Console.WriteLine("012   021   102   120   201   210");
+            Console.WriteLine("What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9 ?");
+            LexicographicPermutations("0123456789",1_000_000);
         }
         #region Multiples
         static void Multiples(int[] numberMultiples, int maxNumber)
@@ -1382,7 +1388,7 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
                 string textFromFile = Encoding.Default.GetString(buffer);
                 names = textFromFile.Split(',');
             }
-            decimal[] convertNames = new decimal[names.Length];
+            long[] convertNames = new long[names.Length];
             for (int i = 0; i < names.Length; i++)
             {
                 for (int j = 0; j < names[i].Length; j++)
@@ -1459,7 +1465,7 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
                         case 34: tmp[i] = 'Y' + tmp[i]; sum += 25; break;
                         case 35: tmp[i] = 'Z' + tmp[i]; sum += 26; break;
                     }
-                    convertNames[i] = Math.Round(convertNames[i] / 100);
+                    convertNames[i] = convertNames[i] / 100;
                 }
                 globalsum +=sum* (i + 1);
             }
@@ -1485,14 +1491,14 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
 
         
 
-        static void Swap(ref decimal a, ref decimal b)
+        static void Swap(ref long a, ref long b)
         {
-            decimal tmp = a;
+            long tmp = a;
             a = b;
             b = tmp;
         }
 
-        static void QSort(decimal[] array, int firstIndex = 0, int lastIndex = -1)
+        static void QSort(long[] array, int firstIndex = 0, int lastIndex = -1)
         {
             if (lastIndex < 0)
                 lastIndex = array.Length - 1;
@@ -1551,17 +1557,82 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         }
         #endregion
 
-        #region
+        #region Lexicographic permutations
+        static void LexicographicPermutations(string numbersForPermutation, int max)
+        {
+            //int maxPermutation = Factorial(numbersForPermutation.Length);
+            //string[] allNumbers = new string[maxPermutation];
+            //long[] intallNumbers = new long[maxPermutation];
+            //intallNumbers[0] = Convert.ToInt32(numbersForPermutation);
+            //allNumbers[0] = numbersForPermutation;
+            //int current = 1;
+            //int a = 1;
+            //while(current<maxPermutation)
+            //{
+            //    if (a <0)
+            //        a = numbersForPermutation.Length - 1;
+            //    allNumbers[current] += allNumbers[current-1][a--];
+
+            //    if (allNumbers[current].Length == numbersForPermutation.Length)
+            //    {
+            //        intallNumbers[current] = Convert.ToInt64(allNumbers[current]);
+            //        current++;
+            //        a--;
+            //        if (a == -2)
+            //            a = numbersForPermutation.Length + a;
+            //    }
+
+            //}
+            //QSort(intallNumbers);
+            //foreach (long s in intallNumbers)
+            //    Console.Write("{0} ", s);
+
+            string result="";
+            while (max > 0)
+            {
+                int maxPermutation = Factorial(numbersForPermutation.Length-1);
+                for (int i=1;i< numbersForPermutation.Length;i++)
+                    if (maxPermutation * (i + 1) > max)
+                    {
+                        max -=maxPermutation*i;
+                        result += numbersForPermutation[i];
+                        numbersForPermutation=numbersForPermutation.ExclusionString(i);
+                        break;
+                    }
+
+            }
+            result += numbersForPermutation[0];
+            Console.WriteLine(result);
+
+        }
         #endregion
 
         #region
         #endregion
+        static int Factorial(int numberLenght)
+        {
+            int Result = 1;
+            while(numberLenght>1)
+            {
+                Result *= numberLenght--;
+            }
+            return Result;
+        }
     }
+    
     public static class StringExtensions
     {
         public static int ValueConvert(this string x, int position)
         {
             return int.Parse(x[position].ToString());
+        }
+        public static string ExclusionString(this string x, int position)
+        {
+            string newString = "";
+            for (int i = 0; i < x.Length; i++)
+                if (i != position)
+                    newString += x[i];
+            return newString;
         }
     }
 }
