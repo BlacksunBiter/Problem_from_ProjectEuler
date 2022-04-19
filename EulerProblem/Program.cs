@@ -339,7 +339,27 @@ namespace EulerProblem
             Console.WriteLine("A permutation is an ordered arrangement of objects.For example, 3124 is one possible permutation of the digits 1, 2, 3 and 4.If all of the permutations are listed numerically or alphabetically, we call it lexicographic order.The lexicographic permutations of 0, 1 and 2 are:");
             Console.WriteLine("012   021   102   120   201   210");
             Console.WriteLine("What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9 ?");
-            LexicographicPermutations("0123456789",1_000_000);
+            //LexicographicPermutations("0123456789",1_000_000);
+
+
+            Console.WriteLine("The Fibonacci sequence is defined by the recurrence relation:");
+            Console.WriteLine("Fn = Fn−1 + Fn−2, where F1 = 1 and F2 = 1.");
+            Console.WriteLine("Hence the first 12 terms will be:");
+            Console.WriteLine("F1 = 1");
+            Console.WriteLine("F2 = 1");
+            Console.WriteLine("F3 = 2");
+            Console.WriteLine("F4 = 3");
+            Console.WriteLine("F5 = 5");
+            Console.WriteLine("F6 = 8");
+            Console.WriteLine("F7 = 13");
+            Console.WriteLine("F8 = 21");
+            Console.WriteLine("F9 = 34");
+            Console.WriteLine("F10 = 55");
+            Console.WriteLine("F11 = 89");
+            Console.WriteLine("F12 = 144");
+            Console.WriteLine("The 12th term, F12, is the first term to contain three digits.");
+            Console.WriteLine("What is the index of the first term in the Fibonacci sequence to contain 1000 digits?");
+            FibonacciNumber1000digit();
         }
         #region Multiples
         static void Multiples(int[] numberMultiples, int maxNumber)
@@ -1604,6 +1624,30 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
             result += numbersForPermutation[0];
             Console.WriteLine(result);
 
+        }
+        #endregion
+
+        #region 1000-digit Fibonacci number
+        static void FibonacciNumber1000digit()
+        {
+            double n = (999.0d * Math.Log10(10) + 0.5d * Math.Log10(5)) / (Math.Log10(1 + Math.Sqrt(5)) - Math.Log10(2));
+                Console.WriteLine(n);
+            BigInteger currentNum = 0;
+            BigInteger previousNum = 2;
+            BigInteger lastNum = 1;
+            BigInteger index = 3;
+
+            while (true)
+            {
+                currentNum = lastNum + previousNum;
+                index++;
+                if (currentNum.ToString().Length >= 1000)
+                    break;
+                lastNum = previousNum;
+                previousNum = currentNum;
+            }
+
+            Console.WriteLine(index);
         }
         #endregion
 
