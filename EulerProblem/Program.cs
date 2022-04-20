@@ -359,7 +359,23 @@ namespace EulerProblem
             Console.WriteLine("F12 = 144");
             Console.WriteLine("The 12th term, F12, is the first term to contain three digits.");
             Console.WriteLine("What is the index of the first term in the Fibonacci sequence to contain 1000 digits?");
-            FibonacciNumber1000digit();
+            //FibonacciNumber1000digit();
+
+
+            Console.WriteLine("A unit fraction contains 1 in the numerator. The decimal representation of the unit fractions with denominators 2 to 10 are given:");
+            Console.WriteLine("1 / 2 = 0.5");
+            Console.WriteLine("1 / 3 = 0.(3)");
+            Console.WriteLine("1 / 4 = 0.25");
+            Console.WriteLine("1 / 5 = 0.2");
+            Console.WriteLine("1 / 6 = 0.1(6)");
+            Console.WriteLine("1 / 7 = 0.(142857");
+            Console.WriteLine("1 / 8 = 0.125");
+            Console.WriteLine("1 / 9 = 0.(1)");
+            Console.WriteLine("1 / 10 = 0.1");
+            Console.WriteLine("Where 0.1(6) means 0.166666..., and has a 1 - digit recurring cycle. It can be seen that 1 / 7 has a 6 - digit recurring cycle.");
+            Console.WriteLine("Find the value of d < 1000 for which 1 / d contains the longest recurring cycle in its decimal fraction part.");
+            ReciprocalCycles();
+
         }
         #region Multiples
         static void Multiples(int[] numberMultiples, int maxNumber)
@@ -1105,7 +1121,7 @@ namespace EulerProblem
         #region Number letter counts
         static void NumberLetterCounts()
         {
-            string[] allNumbers = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety", "hundred", "thousand" };
+            string[] allNumbers = { "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety", "hundred", "thousand" };
             int sum = 0;
             for (int i = 1; i < 20; i++)
             {
@@ -1124,16 +1140,16 @@ namespace EulerProblem
                     case 8: sum += allNumbers[26].Length; break;
                     case 9: sum += allNumbers[27].Length; break;
                 }
-                sum += allNumbers[i%10].Length;
+                sum += allNumbers[i % 10].Length;
             }
             sum *= 10;
             for (int i = 100; i < 1000; i++)
             {
                 sum += allNumbers[28].Length + allNumbers[i / 100].Length;
-                if (i%100!=0)
-                sum +=3;
+                if (i % 100 != 0)
+                    sum += 3;
             }
-            Console.WriteLine(sum+ allNumbers[29].Length+3);
+            Console.WriteLine(sum + allNumbers[29].Length + 3);
         }
         #endregion
 
@@ -1319,7 +1335,7 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
             int[] days = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
             int sunday = 0;
             int day = 1;
-            for(int i=1;i<=100;i++)
+            for (int i = 1; i <= 100; i++)
             {
                 if (i % 4 == 0)
                     days[1]++;
@@ -1327,7 +1343,7 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
                 {
                     for (int j = 1; j <= days[month]; j++)
                     {
-                        
+
                         day++;
                         if (day == 7)
                         {
@@ -1347,15 +1363,15 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         #region Factorial digit sum
         static void FactorialDigitSum(int n)
         {
-            BigInteger  mult = 2;
+            BigInteger mult = 2;
             int sum = 0;
-            for (int i =3;i<=n;i++)
+            for (int i = 3; i <= n; i++)
             {
                 if (mult % 10 == 0)
                     mult /= 10;
                 mult *= i;
             }
-            while(mult>0)
+            while (mult > 0)
             {
                 sum += (int)(mult % 10);
                 mult /= 10;
@@ -1369,17 +1385,17 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         {
             int NumberOne, NumberTwo;
             int sum = 0;
-            for (int i=10;i<10000;i++)
+            for (int i = 10; i < 10000; i++)
             {
                 NumberOne = SumDivider(i);
-                NumberTwo= SumDivider(NumberOne);
-                if (i == NumberTwo&& i!=NumberOne)
+                NumberTwo = SumDivider(NumberOne);
+                if (i == NumberTwo && i != NumberOne)
                 {
                     Console.WriteLine(i + " = " + NumberOne);
                     sum += i + NumberOne;
                 }
             }
-            Console.WriteLine(sum/2);
+            Console.WriteLine(sum / 2);
         }
         static int SumDivider(int dividend)
         {
@@ -1487,7 +1503,7 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
                     }
                     convertNames[i] = convertNames[i] / 100;
                 }
-                globalsum +=sum* (i + 1);
+                globalsum += sum * (i + 1);
             }
 
 
@@ -1509,7 +1525,7 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
 
         }
 
-        
+
 
         static void Swap(ref long a, ref long b)
         {
@@ -1545,13 +1561,13 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         #region Non-abundant sums
         static void NonAbundantSums()
         {
-            BigInteger sum=0;
+            BigInteger sum = 0;
             int max = 28123;
             List<int> absolutlyNumbers = new List<int>();
             for (int i = 1; i <= max; i++)
             {
                 int absoluteSum = 0;
-                for (int divider = 1; divider <= i/2; divider++)
+                for (int divider = 1; divider <= i / 2; divider++)
                 {
                     if (i % divider == 0)
                         absoluteSum += divider;
@@ -1568,11 +1584,11 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
                 for (int j = 0; j < absolut.Length; j++)
                 {
                     tmp = absolut[i] + absolut[j];
-                    if(tmp<max)
-                        a[tmp]=tmp;
+                    if (tmp < max)
+                        a[tmp] = tmp;
                 }
             for (int i = 1; i < max; i++)
-                sum += i-a[i];
+                sum += i - a[i];
             Console.WriteLine(sum);
         }
         #endregion
@@ -1607,16 +1623,16 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
             //foreach (long s in intallNumbers)
             //    Console.Write("{0} ", s);
 
-            string result="";
+            string result = "";
             while (max > 0)
             {
-                int maxPermutation = Factorial(numbersForPermutation.Length-1);
-                for (int i=1;i< numbersForPermutation.Length;i++)
+                int maxPermutation = Factorial(numbersForPermutation.Length - 1);
+                for (int i = 1; i < numbersForPermutation.Length; i++)
                     if (maxPermutation * (i + 1) > max)
                     {
-                        max -=maxPermutation*i;
+                        max -= maxPermutation * i;
                         result += numbersForPermutation[i];
-                        numbersForPermutation=numbersForPermutation.ExclusionString(i);
+                        numbersForPermutation = numbersForPermutation.ExclusionString(i);
                         break;
                     }
 
@@ -1631,7 +1647,7 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         static void FibonacciNumber1000digit()
         {
             double n = (999.0d * Math.Log10(10) + 0.5d * Math.Log10(5)) / (Math.Log10(1 + Math.Sqrt(5)) - Math.Log10(2));
-                Console.WriteLine(n);
+            Console.WriteLine(n);
             BigInteger currentNum = 0;
             BigInteger previousNum = 2;
             BigInteger lastNum = 1;
@@ -1651,12 +1667,44 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         }
         #endregion
 
+        #region Reciprocal cycles
+        static void ReciprocalCycles()
+        {
+            decimal d = 1;
+            int max = 0;
+            int solution = 0;
+            int residue = 0;
+            int lenght = 0;
+            for (var i = 7; i < 1000; i += 2)
+            {
+                if (i % 5 == 0)
+                {
+                    continue;
+                }
+                residue = 1;
+                lenght = 0;
+                do
+                {
+                    residue = residue * 10 % i;
+                    lenght++;
+                } while (residue != 1);
+                if (max < lenght)
+                {
+                    solution = i;
+                    max = lenght;
+                }
+            }
+
+            Console.WriteLine("" + solution);
+        }
+        #endregion
+
         #region
         #endregion
         static int Factorial(int numberLenght)
         {
             int Result = 1;
-            while(numberLenght>1)
+            while (numberLenght > 1)
             {
                 Result *= numberLenght--;
             }
