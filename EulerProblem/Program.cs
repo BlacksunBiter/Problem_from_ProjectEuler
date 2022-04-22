@@ -374,8 +374,17 @@ namespace EulerProblem
             Console.WriteLine("1 / 10 = 0.1");
             Console.WriteLine("Where 0.1(6) means 0.166666..., and has a 1 - digit recurring cycle. It can be seen that 1 / 7 has a 6 - digit recurring cycle.");
             Console.WriteLine("Find the value of d < 1000 for which 1 / d contains the longest recurring cycle in its decimal fraction part.");
-            ReciprocalCycles();
+            //ReciprocalCycles();
 
+
+            Console.WriteLine("Euler discovered the remarkable quadratic formula:");
+            Console.WriteLine("n ^ 2 + n + 41");
+            Console.WriteLine("It turns out that the formula will produce 40 primes for the consecutive integer values 0 <= n <= 39.However, when n = 40, 40 ^ 2 + 40 + 41 = 40(40 + 1) + 41 is divisible by 41, and certainly when n = 41, 41 ^ 2 + 41 + 41 is clearly divisible by 41.");
+            Console.WriteLine("The incredible formula n ^ 2 - 79n + 1601 was discovered, which produces 80 primes for the consecutive values 0 <= n <= 79.The product of the coefficients, −79 and 1601, is −126479.");
+            Console.WriteLine("  Considering quadratics of the form:");
+            Console.WriteLine("n ^ 2 + an + b, where | a | < 1000 and | b | <= 1000 where | n | is the modulus / absolute value of n e.g. | 11 | = 11 and | -4 | = 4");
+            Console.WriteLine("  Find the product of the coefficients, a and b, for the quadratic expression that produces the maximum number of primes for consecutive values of n, starting with n = 0.");
+            QuadraticPrimes();
         }
         #region Multiples
         static void Multiples(int[] numberMultiples, int maxNumber)
@@ -1412,7 +1421,7 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         #region Names scores
         static void NamesScores()
         {
-            int[] array = { 4, 5, 8, 1, 9, 2, 7, 3, 6, 26, 11, 24, 17, 10, 25, 13, 23, 14, 22, 15, 21, 16, 20, 18, 19, 12 };
+            
             string[] names;
             using (FileStream fstream = File.OpenRead("names.txt"))
             {
@@ -1699,6 +1708,105 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         }
         #endregion
 
+        #region Quadratic primes
+        static void QuadraticPrimes()
+        {
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+            //n^2 + an + b                     n * (n + a) + b             |a| < 1000  |b| <= 1000
+            int count = 1;
+            bool flag = true;
+            int maxCount = 0;
+            string[] primes = File.ReadAllText("PrimeNumber1000.txt").Split(' ');
+            int[] b = new int[primes.Length];
+            for (int i = 0; i < primes.Length; i++)
+                b[i] = int.Parse(primes[i]);
+            primes = File.ReadAllText("PrimeNumber.txt").Split(' ');
+            for (int a = -999; a < 1000; a++)
+            {
+                for (int bCurrent = 0; bCurrent < b.Length; bCurrent++)
+                {
+                    for (int n = 1; n < 1001; n++)
+                    {
+                        flag = true;
+
+                        int tmp =Math.Abs(n * (n + a) + b[bCurrent]);
+                        for (int i = 0; i < primes.Length; i++)
+                            if (tmp >= int.Parse(primes[i]))
+                            {
+                                if (primes[i]==tmp.ToString())
+                                {
+                                    count++;
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                            else
+                                break;
+                        if (flag)
+                        {
+                            break;
+                        }
+                    }
+                    if (count > maxCount)
+                    {
+                        maxCount = count;
+                        Console.WriteLine("count = " + count + "   a = " + a + "   b = " + b[bCurrent] + "             product = " + (a * b[bCurrent]));
+                    }
+                    count = 1;
+                }
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Time: " + stopwatch.Elapsed);
+            
+        }
+        static void test()
+        {
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+            bool isPrime;
+            int n = 1;
+            int m = 0;
+            int maxn = 0;
+            int maxa = 0;
+            int maxb = 0;
+            DateTime start = DateTime.Now;
+            for (int a = -999; a < 999; a++)
+            {
+                for (int b = 1; b < 1000; b+=2)
+                {
+                    isPrime = true;
+                    n = 0;
+                    m = b;
+                    while (isPrime)
+                    {
+                        isPrime = true;
+
+                        if (m < 0 || m % 2 == 0 || m % 3 == 0)
+                        { isPrime = false; break; }
+                        else for (int x = 4; x <= Math.Sqrt(m) + 1; x++)
+                                if (m % x == 0)
+                                { isPrime = false; break; }
+                        n++;
+                        // convert multiplication into addition
+                        m += a + n + (n - 1);
+                    }
+                    if (n > maxn) { maxa = a; maxb = b; maxn = n; }
+                }
+            }
+            DateTime end = DateTime.Now;
+            Console.WriteLine("The max coefficients are " + maxa.ToString() + " , and " + maxb.ToString());
+            Console.WriteLine("They produce a run of primes " + (maxn).ToString() + " long.");
+            Console.WriteLine("Their product is " + (maxa * maxb).ToString());
+            Console.WriteLine("This took " + (end - start).TotalMilliseconds.ToString() + "ms");
+            stopwatch.Stop();
+            Console.WriteLine("Time: " + stopwatch.Elapsed);
+        }
+        #endregion
+
+        #region
+        #endregion
+
         #region
         #endregion
         static int Factorial(int numberLenght)
@@ -1709,6 +1817,35 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
                 Result *= numberLenght--;
             }
             return Result;
+        }
+        static void PrimeInFile()
+        {
+            int[] primeNumbers = { 2 };
+            int primeNumber = 1;
+            bool coffecent;
+            string a = "1 2";
+            while (primeNumbers[primeNumbers.Length - 1] < 1000000)
+            {
+                primeNumber += 2;
+                coffecent = true;
+                if (primeNumber % 5 == 0 && primeNumber > 10)
+                    continue;
+                for (int i = 0; i < primeNumbers.Length; i++)
+                    if (primeNumber % primeNumbers[i] == 0)
+                    {
+                        coffecent = false;
+                        break;
+                    }
+                if (coffecent)
+                {
+                    primeNumbers = IncreaseVector(primeNumbers, primeNumber);
+                    a += " " + primeNumber.ToString();
+                }
+            }
+            //if (!File.Exists("primeNumber.txt"))
+            File.WriteAllText("PrimeNumber.txt", a);
+            //else
+            //a = File.ReadAllText("primeNumber.txt");
         }
     }
     
