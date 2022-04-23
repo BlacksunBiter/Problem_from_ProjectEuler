@@ -384,7 +384,19 @@ namespace EulerProblem
             Console.WriteLine("  Considering quadratics of the form:");
             Console.WriteLine("n ^ 2 + an + b, where | a | < 1000 and | b | <= 1000 where | n | is the modulus / absolute value of n e.g. | 11 | = 11 and | -4 | = 4");
             Console.WriteLine("  Find the product of the coefficients, a and b, for the quadratic expression that produces the maximum number of primes for consecutive values of n, starting with n = 0.");
-            QuadraticPrimes();
+            //QuadraticPrimes();
+
+
+            Console.WriteLine("Starting with the number 1 and moving to the right in a clockwise direction a 5 by 5 spiral is formed as follows:");
+            Console.ForegroundColor = ConsoleColor.Red;  Console.Write("21 "); Console.ResetColor(); Console.Write("22 23 24 "); Console.ForegroundColor = ConsoleColor.Red;  Console.WriteLine("25");
+            Console.ResetColor(); Console.Write("20  "); Console.ForegroundColor = ConsoleColor.Red; Console.Write("7"); Console.ResetColor(); Console.Write("  8  "); Console.ForegroundColor = ConsoleColor.Red; Console.Write("9"); Console.ResetColor(); Console.WriteLine(" 10");
+            Console.Write("19  6 "); Console.ForegroundColor = ConsoleColor.Red; Console.Write(" 1"); Console.ResetColor(); Console.WriteLine("  2 11");
+            
+            Console.WriteLine("18  5  4  3 12");
+            Console.WriteLine("17 16 15 14 13");
+            Console.WriteLine("It can be verified that the sum of the numbers on the diagonals is 101.");
+            Console.WriteLine("What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed in the same way ?");
+            NumberSpiralDiagonals(1001);
         }
         #region Multiples
         static void Multiples(int[] numberMultiples, int maxNumber)
@@ -1804,7 +1816,29 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         }
         #endregion
 
-        #region
+        #region Number spiral diagonals
+        static void NumberSpiralDiagonals(int s)
+        {
+            //73 74 75 76 77 78 79 80 81
+            //72 43 44 45 46 47 48 49 50
+            //71 42 21 22 23 24 25 26 51
+            //70 41 20  7  8  9 10 27 52
+            //69 40 19  6  1  2 11 28 53
+            //68 39 18  5  4  3 12 29 54
+            //67 38 17 16 15 14 13 30 55
+            //66 37 36 35 34 33 32 31 56
+            //65 64 63 62 61 60 59 58 57
+            long sum = 0, current = 0;
+            float coof = 0;
+            int spiralLenght = s * s;
+            while (current < spiralLenght)
+            {
+                sum += current+1;
+                current += 2 + 2 * (int)coof;
+                coof += 0.25f;
+            }
+            Console.WriteLine("Solution: " + sum);
+        }
         #endregion
 
         #region
