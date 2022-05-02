@@ -9,7 +9,7 @@ namespace EulerProblem
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("Multiples of 3 or 5");
             Console.WriteLine("\n If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9.The sum of these multiples is 23.");
@@ -417,6 +417,14 @@ namespace EulerProblem
             Console.WriteLine("The sum of these numbers is 1634 + 8208 + 9474 = 19316.");
             Console.WriteLine("Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.");
             DigitFifthPowers(5);
+
+
+            Console.WriteLine("In the United Kingdom the currency is made up of pound(£) and pence(p). There are eight coins in general circulation:");
+            Console.WriteLine("    1p, 2p, 5p, 10p, 20p, 50p, £1(100p), and £2(200p).");
+            Console.WriteLine("It is possible to make £2 in the following way:");
+            Console.WriteLine("    1×£1 + 1×50p + 2×20p + 1×5p + 1×2p + 3×1p");
+            Console.WriteLine("How many different ways can £2 be made using any number of coins?");
+            CoinSums(200);
 
         }
         #region Multiples
@@ -1712,7 +1720,6 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         #region Reciprocal cycles
         static void ReciprocalCycles()
         {
-            decimal d = 1;
             int max = 0;
             int solution = 0;
             int residue = 0;
@@ -1900,7 +1907,22 @@ new int[]{23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,3
         }
         #endregion
 
-        #region
+        #region Coin sums
+        static void CoinSums(int sumCoin)
+        {//1p, 2p, 5p, 10p, 20p, 50p, £1 (100p), and £2 (200p).
+            var coins = new[] { 1, 2, 5, 10, 20, 50, 100, 200 };
+            var table = new int[sumCoin + 1];
+                table[0] = 1;
+
+            for (var i = 0; i < coins.Length; i++)
+            {
+                for (var j = coins[i]; j <= sumCoin; j++)
+                {
+                    table[j] += table[j - coins[i]];
+                }
+            }
+                    Console.WriteLine(table[sumCoin]);
+        }
         #endregion
 
         #region
